@@ -85,8 +85,29 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/sudo/sudo.plugin.zsh
+# https://github.com/junegunn/fzf-git.sh.git
+source ~/.zsh/fzf-git.sh/fzf-git.sh
 
 # Starfish prompteval 
 eval "$(starship init zsh)"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Enable fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
+
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo \${}'"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+  esac
+}
+
+# default theme of bat, external theme downloaded
+export BAT_THEME=tokyonight_night
