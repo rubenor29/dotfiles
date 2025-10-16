@@ -32,8 +32,12 @@ k.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Pestaña anterior" })
 k.set("n", "<S-TAB>", "<cmd>tabp<CR>", { desc = "Pestaña anterior" })
 k.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Archivo actual en nueva pestaña" })
 
-k.set("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Mostrar diagnosticos" })
+k.set("n", "<leader>dd", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Mostrar diagnosticos" })
 
 -- k.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Ir a la definicion" })
 -- k.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Ir a las declaraciones" })
 -- k.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "Ir a las referencias" })
+
+-- Compiling settings
+k.set("n", "<leader>mc", ":compiler ", { desc = "configure compiler" })
+k.set("n", "<leader>mm", "<cmd>make<CR>", { desc = "make project" })

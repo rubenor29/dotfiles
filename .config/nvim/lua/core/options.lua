@@ -41,3 +41,5 @@ o.clipboard:append("unnamedplus") -- Sincroniza el portapapeles de Neovim ("*/"+
 -- División de Ventanas
 o.splitright = true -- :vsplit abre a la derecha
 o.splitbelow = true -- :split abre abajo
+
+o.winborder = "rounded"

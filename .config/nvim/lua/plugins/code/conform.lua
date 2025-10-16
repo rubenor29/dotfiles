@@ -24,21 +24,20 @@ return {
 				java = { "jdtls" },
 				c = { "clangd" },
 				cpp = { "clang-format" },
-				csharp = { "clang-format" },
+				cs = { "csharpier_ramboe" },
+				csproj = { "csharpier_ramboe" },
 				rust = { "rust_analyzer" },
 				php = { "php_cs_fixer" },
 			},
 			formatters = {
-				php_cs_fixer = {
-					command = "php-cs-fixer",
+        -- Format config by ramboe
+				csharpier_ramboe = {
+					command = "csharpier",
 					args = {
-						"fix",
-						"--quiet", "--allow-risky=yes", -- Permite reglas "riesgosas"
-						"-",
+						"format",
+						"--write-stdout",
 					},
-					env = {
-						PHP_CS_FIXER_IGNORE_ENV = "true",
-					},
+					to_stdin = true,
 				},
 			},
 			-- format_on_save = {
