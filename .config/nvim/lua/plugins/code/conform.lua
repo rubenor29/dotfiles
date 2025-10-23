@@ -51,7 +51,7 @@ return {
 			conform.format({
 				lsp_fallback = true,
 				async = false,
-				timeout_ms = 1000,
+				timeout_ms = 5000,
 			})
 		end, { desc = "Format file or range (in visual mode)" })
 	end,

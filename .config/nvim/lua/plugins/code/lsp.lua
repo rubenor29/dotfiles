@@ -1,3 +1,26 @@
+-- /home/rubenor/.config/nvim/lua/plugins/code/lsp.lua
+
+local k = vim.keymap
+
+---
+-- Función on_attach compartida
+-- Se mantiene en el ámbito superior porque no tiene dependencias de plugins externos.
+---
+local on_attach = function(client, bufnr)
+	print("[LSP] Attached to", client.name)
+
+	-- Atajos de teclado específicos del buffer
+	k.set("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { buffer = bufnr, desc = "Ir a la definicion" })
+	k.set(
+		"n",
+		"<leader>gD",
+		"<cmd>lua vim.lsp.buf.declaration()<CR>",
+		{ buffer = bufnr, desc = "Ir a las declaraciones" }
+	)
+	k.set("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", { buffer = bufnr, desc = "Ir a las referencias" })
+	k.set({ "n", "v" }, "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { buffer = bufnr, desc = "Acciones de Codigo" })
+end
+
 return {
 	-- For C# and Razor support
 	{
@@ -8,21 +31,22 @@ return {
 		opts = {
 			-- your configuration comes here; leave empty for default settings
 		},
-
-		-- ADD THIS:
-
 		dependencies = {
-			{
-				-- By loading as a dependencies, we ensure that we are available to set
-				-- the handlers for Roslyn.
-				"tris203/rzls.nvim",
-				config = true,
-			},
+			"tris203/rzls.nvim",
+			"hrsh7th/cmp-nvim-lsp", -- Dependencia añadida para poder usar capabilities
 		},
 		lazy = false,
 		config = function()
-			-- Use one of the methods in the Integration section to compose the command.
-			local mason_registry = require("mason-registry")
+			-- Capabilities se definen aquí para asegurar que cmp-nvim-lsp está cargado
+			local capabilities = (function()
+				local cmp_nvim_lsp = require("cmp_nvim_lsp")
+				local base_capabilities = vim.lsp.protocol.make_client_capabilities()
+				local caps = cmp_nvim_lsp.default_capabilities(base_capabilities)
+				caps.textDocument.completion.completionItem.snippetSupport = true
+				return caps
+			end)()
+
+			require("mason-registry")
 
 			local rzls_path = vim.fn.expand("$MASON/packages/rzls/libexec")
 			local cmd = {
@@ -39,12 +63,13 @@ return {
 
 			vim.lsp.config("roslyn", {
 				cmd = cmd,
+				on_attach = on_attach,
+				capabilities = capabilities,
 				handlers = require("rzls.roslyn_handlers"),
 				settings = {
 					["csharp|inlay_hints"] = {
 						csharp_enable_inlay_hints_for_implicit_object_creation = true,
 						csharp_enable_inlay_hints_for_implicit_variable_types = true,
-
 						csharp_enable_inlay_hints_for_lambda_parameter_types = true,
 						csharp_enable_inlay_hints_for_types = true,
 						dotnet_enable_inlay_hints_for_indexer_parameters = true,
@@ -64,7 +89,6 @@ return {
 			vim.lsp.enable("roslyn")
 		end,
 		init = function()
-			-- We add the Razor file types before the plugin loads.
 			vim.filetype.add({
 				extension = {
 					razor = "razor",
@@ -93,17 +117,15 @@ return {
 		config = function()
 			local lspconfig = require("lspconfig")
 			local mason_lspconfig = require("mason-lspconfig")
-			local cmp_nvim_lsp = require("cmp_nvim_lsp")
-			local k = vim.keymap
 
-			-- 1. Capacidades base de Neovim
-			local base_capabilities = vim.lsp.protocol.make_client_capabilities()
-
-			-- 2. Mejorar con capacidades de nvim-cmp
-			local capabilities = cmp_nvim_lsp.default_capabilities(base_capabilities)
-
-			-- 3. Personalización adicional (opcional)
-			capabilities.textDocument.completion.completionItem.snippetSupport = true
+			-- Se restauran las capabilities aquí para respetar el orden de carga de lazy.nvim
+			local capabilities = (function()
+				local cmp_nvim_lsp = require("cmp_nvim_lsp")
+				local base_capabilities = vim.lsp.protocol.make_client_capabilities()
+				local caps = cmp_nvim_lsp.default_capabilities(base_capabilities)
+				caps.textDocument.completion.completionItem.snippetSupport = true
+				return caps
+			end)()
 
 			-- Configuración de signos de diagnóstico
 			vim.diagnostic.config({
@@ -116,14 +138,6 @@ return {
 					},
 				},
 			})
-
-			k.set("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Ir a la definicion" })
-			k.set("n", "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Ir a las declaraciones" })
-			k.set("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "Ir a las referencias" })
-
-			local on_attach = function(client)
-				print("[LSP] Attached to", client.name)
-			end
 
 			mason_lspconfig.setup({
 				ensure_installed = {
@@ -168,9 +182,9 @@ return {
 					end,
 
 					["emmet_ls"] = function()
-						-- configure emmet language server
 						lspconfig["emmet_ls"].setup({
 							capabilities = capabilities,
+							on_attach = on_attach,
 							filetypes = {
 								"html",
 								"typescriptreact",
@@ -188,3 +202,4 @@ return {
 		end,
 	},
 }
+
