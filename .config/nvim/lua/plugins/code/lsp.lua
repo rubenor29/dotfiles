@@ -18,7 +18,12 @@ local on_attach = function(client, bufnr)
 		{ buffer = bufnr, desc = "Ir a las declaraciones" }
 	)
 	k.set("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", { buffer = bufnr, desc = "Ir a las referencias" })
-	k.set({ "n", "v" }, "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { buffer = bufnr, desc = "Acciones de Codigo" })
+	k.set(
+		{ "n", "v" },
+		"<leader>ca",
+		"<cmd>lua vim.lsp.buf.code_action()<CR>",
+		{ buffer = bufnr, desc = "Acciones de Codigo" }
+	)
 end
 
 return {
@@ -199,7 +204,24 @@ return {
 					end,
 				},
 			})
+
+			-- For C# avalonia
+			vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+				pattern = { "*.axaml" },
+				callback = function(event)
+					vim.lsp.start({
+						name = "avalonia",
+						cmd = { "avalonia-ls" },
+						root_dir = vim.fn.getcwd(),
+					})
+				end,
+			})
+
+			vim.filetype.add({
+				extension = {
+					axaml = "xml",
+				},
+			})
 		end,
 	},
 }
-

@@ -30,7 +30,7 @@ return {
 				php = { "php_cs_fixer" },
 			},
 			formatters = {
-        -- Format config by ramboe
+				-- Format config by ramboe
 				csharpier_ramboe = {
 					command = "csharpier",
 					args = {
