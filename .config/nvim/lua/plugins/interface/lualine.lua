@@ -6,16 +6,31 @@ return {
 		local lazy_status = require("lazy.status") -- to configure lazy pending updates count
 
 		-- Adaptando la paleta a los colores del tema
-		local colors = {
-			bg = "#11121D", -- bg0
-			fg = "#A0A8CD", -- fg
-			blue = "#7199EE", -- blue
-			green = "#95C561", -- green
-			purple = "#A485DD", -- purple
-			yellow = "#D7A65F", -- yellow
-			red = "#EE6D85", -- red
-			inactive_bg = "#353945", -- bg3
+		local themes = {
+			tokyonight = {
+				bg = "#11121D",
+				fg = "#A0A8CD",
+				blue = "#7199EE",
+				green = "#95C561",
+				purple = "#A485DD",
+				yellow = "#D7A65F",
+				red = "#EE6D85",
+				inactive_bg = "#353945",
+			},
+			retrobox = {
+				bg = "#282828",
+				fg = "#ebdbb2",
+				blue = "#83a598",
+				green = "#b8bb26",
+				purple = "#d3869b",
+				yellow = "#fabd2f",
+				red = "#fb4934",
+				inactive_bg = "#3c3836",
+			},
 		}
+
+		-- Selecciona el tema activo aquí
+		local colors = themes["retrobox"]
 
 		local my_lualine_theme = {
 			normal = {
@@ -62,9 +77,6 @@ return {
 						cond = lazy_status.has_updates,
 						color = { fg = colors.yellow },
 					},
-					{ "encoding" },
-					{ "fileformat" },
-					{ "filetype" },
 				},
 			},
 		})

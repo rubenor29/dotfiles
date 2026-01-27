@@ -43,3 +43,5 @@ o.splitright = true -- :vsplit abre a la derecha
 o.splitbelow = true -- :split abre abajo
 
 o.winborder = "rounded"
+
+vim.cmd("colorscheme retrobox")
