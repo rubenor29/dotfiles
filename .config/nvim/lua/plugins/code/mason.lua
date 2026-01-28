@@ -1,52 +1,31 @@
-return {
-	"williamboman/mason.nvim",
-	dependencies = {
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-	},
-	config = function()
-		local mason = require("mason")
-		local mason_tool_installer = require("mason-tool-installer")
+vim.pack.add({
+  { src = "https://github.com/williamboman/mason.nvim" },
+  { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+})
 
-		mason.setup({
-			registries = {
-				"github:mason-org/mason-registry",
-				"github:crashdummyy/mason-registry",
-			},
-		})
+-- 1. Setup de Mason
+require("mason").setup({
+  registries = {
+    "github:crashdummyy/mason-registry", -- Necesario para Roslyn
+    "github:mason-org/mason-registry",
+  },
+})
 
-		mason.setup({
-			ui = {
-				icons = {
-					package_installed = "✓",
-					package_pending = "➜",
-					package_uninstalled = "✗",
-				},
-			},
-		})
+-- 2. Setup de Mason Tool Installer
+-- Aquí defines herramientas que no son LSPs (Formatters, Linters, DAP)
+require("mason-tool-installer").setup({
+  ensure_installed = {
 
-		mason_tool_installer.setup({
-			ensure_installed = {
-				"prettier",
-				"stylua",
-				"eslint_d",
-				"clang-format",
-				"ruff",
+    "stylua",   -- Formatter para Lua
+    "prettier", -- Formatter para Web
+    "html-lsp", -- Requerido para formatear razor
+    "netcoredbg", -- Debugger para .NET
+    "eslint_d", -- Linter JS (opcional)
+    "ruff",
 
-				-- PHP Tools
-				"intelephense", -- LSP principal
-				"phpactor", -- Soporte adicional
-				"php-cs-fixer", -- Formateador
-				"phpcs", -- Análisis de calidad
-				"phpstan", -- Análisis estático avanzado
-				"pint", -- Formateador Laravel
-
-				-- .NET Tools
-				"roslyn",
-				"rzls",
-				"netcoredbg",
-				"html-lsp", -- Needed for formatting razor
-				"csharpier",
-			},
-		})
-	end,
-}
+    "roslyn", -- Es un lsp pero necesitamos definirlo aquí para que se instale
+    "rzls", -- Necesario para Roslyn, aunque no lo configuremos en handlers
+  },
+  auto_update = true,
+  run_on_start = true,
+})

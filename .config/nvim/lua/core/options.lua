@@ -1,47 +1,17 @@
--- Estilo de Netrw (explorador de archivos)
--- Muestra archivos en formato de árbol jerárquico (tree view).
-vim.cmd("let g:ntrw_liststyle=3")
-
--- Variable shortcut para opciones
-local o = vim.opt
-
--- Mostrar numero de linea
-o.number = true -- Muestra números de línea absolutos
-o.relativenumber = true -- Mostrar numero de linea relativo a la linea actual
-
--- Impedir que una linea se divida en varias si no cabe en pantalla
-o.wrap = false
-
--- tabs e identacion
-o.tabstop = 2 -- Dos espacios como tabs (prettier default)
-o.shiftwidth = 2 -- 2 espacios como largo de identacion
-o.expandtab = true -- Expandir tabs como espacios
-o.autoindent = true -- Copiar indentacion de la linea actual cuando se crea una nueva
-
--- Ajustes de busqueda
-o.ignorecase = true -- Ignorar mayusculas o minusculas al buscar
-o.smartcase = true -- Si intercalamos mayusculas y minusculas entonces se asume el case-sensisitve
-o.cursorline = true -- Colocar una linea que resalta la linea donde se encuentra el cursor
-
--- Interfaz visual
-o.termguicolors = true -- Habilita colores RGB (24-bit)
-o.background = "dark" -- Fondo oscuro para temas
-o.signcolumn = "yes" -- Columna lateral siempre visible. Espacio para iconos de plugins (diagnósticos, git, etc.)
-
--- Comportamiento de Backspace
--- Permite borrar
--- indent: Espacios de indentación.
--- eol: Saltos de línea (une líneas).
--- start: Caracteres antes del punto de inserción.
-o.backspace = "indent,eol,start"
-
--- Portapapeles
-o.clipboard:append("unnamedplus") -- Sincroniza el portapapeles de Neovim ("*/"+) con el portapapeles del sistema.
-
--- División de Ventanas
-o.splitright = true -- :vsplit abre a la derecha
-o.splitbelow = true -- :split abre abajo
-
-o.winborder = "rounded"
-
-vim.cmd("colorscheme retrobox")
+vim.o.number = true                  -- Numero de lineas a la izq
+vim.o.relativenumber = true          -- Numero relativo al cursor a la izq
+vim.o.wrap = false                   -- Hacer que una linea que sobresale de la pantalla ocupe mas de una linea
+vim.o.tabstop = 2                    -- 2 espacios al presionar tab
+vim.o.shiftwidth = 2                 -- 2 espacios como largo de identación
+vim.o.expandtab = true               -- Expandir tabs como espacios
+vim.o.autoindent = true              -- Copiar identación de la linea actual al crear una nueva
+vim.o.cursorline = true              -- Resaltado de la fila en la que se encuentra el cursor actualmente
+vim.o.termguicolors = true           -- Habilita colores RGB (24bit)
+vim.o.signcolumn = "yes"             -- Columna lateral siempre visible (Espacio para iconos, alertas, etc)
+vim.o.swapfile = false               -- Eliminar el archivo de recuperacion ante fallos
+vim.o.clipboard = "unnamedplus"      -- Sincronizar el portapapeles de neovim con el del sistema
+vim.o.splitright = true              -- :vsplit abre a la derecha
+vim.o.splitbelow = true              -- :split abre abajo
+vim.o.ignorecase = true              -- Ignorar mayusculas o minusculas al buscar
+vim.o.smartcase = true               -- Si intercalamos mayusculas y minusculas entonces se asume el case-sensisitve
+vim.o.backspace = "indent,eol,start" -- Comportamiento de backspace moderno

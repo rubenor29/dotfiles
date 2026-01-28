@@ -1,0 +1,5 @@
+require("plugins.code.mason")
+require("plugins.code.lsp")
+require("plugins.code.nvim-cmp")
+require("plugins.code.render-markdown")
+require("plugins.code.treesitter")
