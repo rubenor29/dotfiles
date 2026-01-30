@@ -1,8 +1,8 @@
 vim.o.number = true                  -- Numero de lineas a la izq
 vim.o.relativenumber = true          -- Numero relativo al cursor a la izq
 vim.o.wrap = false                   -- Hacer que una linea que sobresale de la pantalla ocupe mas de una linea
-vim.o.tabstop = 2                    -- 2 espacios al presionar tab
-vim.o.shiftwidth = 2                 -- 2 espacios como largo de identación
+vim.o.tabstop = 4                    -- 2 espacios al presionar tab
+vim.o.shiftwidth = 4                 -- 2 espacios como largo de identación
 vim.o.expandtab = true               -- Expandir tabs como espacios
 vim.o.autoindent = true              -- Copiar identación de la linea actual al crear una nueva
 vim.o.cursorline = true              -- Resaltado de la fila en la que se encuentra el cursor actualmente
