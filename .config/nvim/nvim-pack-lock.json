@@ -120,6 +120,10 @@
       "rev": "ecce93ff7db4461e942c03e0fcc64bd785df4057",
       "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
     },
+    "tokyogogh.nvim": {
+      "rev": "d22e3a8c668251a7b92401bdad67ba9978ed2e3c",
+      "src": "https://github.com/cesaralvarod/tokyogogh.nvim"
+    },
     "vim-tmux-navigator": {
       "rev": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432",
       "src": "https://github.com/christoomey/vim-tmux-navigator"

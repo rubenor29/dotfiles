@@ -23,7 +23,7 @@ local themes = {
 }
 
 -- Selecciona el tema activo aquí
-local colors = themes["retrobox"]
+local colors = themes["tokyonight"]
 
 vim.pack.add({
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
