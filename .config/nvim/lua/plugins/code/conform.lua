@@ -12,6 +12,7 @@ conform.setup({
 		typescript = { "prettier" },
 		html = { "prettier" },
 		css = { "prettier" },
+		java = { "google-java-format" },
 	},
 })
 

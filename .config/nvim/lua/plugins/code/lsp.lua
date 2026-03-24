@@ -27,6 +27,9 @@ vim.pack.add({
 
 	-- UI para code actions
 	{ src = "https://github.com/stevearc/dressing.nvim" },
+
+	-- Java
+	{ src = "https://github.com/mfussenegger/nvim-jdtls" },
 })
 
 -- =============================================================================
@@ -113,7 +116,6 @@ mason_lspconfig.setup({
 		"lua_ls",
 		"rust_analyzer",
 		"emmet_ls",
-		-- Nota: NO incluyas 'csharp_ls' o 'omnisharp' si usas Roslyn
 	},
 	handlers = {
 		-- Handler por defecto
@@ -146,6 +148,9 @@ mason_lspconfig.setup({
 				filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "razor" },
 			})
 		end,
+
+		-- Asegura que lspconfig no intente arrancar jdtls
+		["jdtls"] = function() end,
 	},
 })
 
@@ -232,5 +237,85 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 				pcall(vim.treesitter.start, args.buf, "html")
 			end
 		end)
+	end,
+})
+
+-- =============================================================================
+-- 8. WORKAROUND PARA COLOREADO DE SVELT (Corrección de LSP crash)
+-- =============================================================================
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+	pattern = { "*.svelte" },
+	callback = function(args)
+		vim.schedule(function()
+			if vim.api.nvim_buf_is_valid(args.buf) then
+				vim.cmd("setlocal syntax=html")
+				pcall(vim.treesitter.start, args.buf, "html")
+			end
+		end)
+	end,
+})
+
+-- =============================================================================
+-- 9. CONFIGURACIÓN DE JAVA (JDTLS + LOMBOK)
+-- =============================================================================
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "java",
+	callback = function(args)
+		-- 1. Rutas estáticas (Evita el crash por inicialización tardía de mason-registry)
+		local jdtls_path = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
+		local lombok_path = vim.fs.joinpath(jdtls_path, "lombok.jar")
+		local launcher = vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar")
+		local config = vim.fs.joinpath(jdtls_path, "config_linux")
+
+		-- Validación defensiva: Si no existe el launcher, detener la ejecución de forma segura
+		if vim.fn.empty(launcher) == 1 then
+			vim.notify("JDTLS no está instalado o en proceso de descarga. Verifica Mason.", vim.log.levels.WARN)
+			return
+		end
+
+		-- 2. Manejo del Workspace: JDTLS necesita un directorio de datos único por proyecto
+		local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+		local workspace_dir = vim.fn.stdpath("data") .. "/site/java/workspace-root/" .. project_name
+
+		-- 3. Configuración para nvim-jdtls
+		local config_jdtls = {
+			cmd = {
+				"java",
+				"-Declipse.application=org.eclipse.jdt.ls.core.id1",
+				"-Dosgi.bundles.defaultStartLevel=4",
+				"-Declipse.product=org.eclipse.jdt.ls.core.product",
+				"-Dlog.protocol=true",
+				"-Dlog.level=ALL",
+				"-javaagent:" .. lombok_path, -- Inyección de Lombok
+				"-Xms1g",
+				"--add-modules=ALL-SYSTEM",
+				"--add-opens",
+				"java.base/java.util=ALL-UNNAMED",
+				"--add-opens",
+				"java.base/java.lang=ALL-UNNAMED",
+				"-jar",
+				launcher,
+				"-configuration",
+				config,
+				"-data",
+				workspace_dir,
+			},
+			root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }),
+			capabilities = capabilities,
+			settings = {
+				java = {
+					eclipse = { downloadSources = true },
+					configuration = { updateBuildConfiguration = "interactive" },
+					maven = { downloadSources = true },
+					implementationsCodeLens = { enabled = true },
+					referencesCodeLens = { enabled = true },
+					inlayHints = { parameterNames = { enabled = "all" } },
+					signatureHelp = { enabled = true },
+				},
+			},
+		}
+
+		-- Arrancar el servidor
+		require("jdtls").start_or_attach(config_jdtls)
 	end,
 })
