@@ -4,4 +4,4 @@ vim.pack.add({
 
 require("tokyogogh").setup()
 
-vim.cmd("colorscheme tokyogogh-storm")
+-- vim.cmd("colorscheme tokyogogh-storm")

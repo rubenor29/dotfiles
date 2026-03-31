@@ -42,7 +42,7 @@ pcall(require, "dressing")
 -- Configuración estética de diagnósticos
 vim.diagnostic.config({
 	float = { border = "rounded", source = "always" },
-	virtual_text = true,
+	virtual_text = false,
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = " ",
@@ -83,9 +83,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		k.set("n", "[d", vim.diagnostic.goto_prev, opts("Diagnóstico anterior"))
 		k.set("n", "]d", vim.diagnostic.goto_next, opts("Siguiente diagnóstico"))
 
-		-- Limpieza específica para Roslyn (Semantic tokens)
+		-- Configuración específica para Roslyn
 		if client.name == "roslyn" then
-			client.server_capabilities.semanticTokensProvider = nil
+			-- Si notas que el coloreado de Treesitter y LSP se solapan de forma extraña, 
+			-- puedes volver a desactivar esto, pero Roslyn ofrece el mejor coloreado posible.
+			-- client.server_capabilities.semanticTokensProvider = nil
 		end
 	end,
 })
