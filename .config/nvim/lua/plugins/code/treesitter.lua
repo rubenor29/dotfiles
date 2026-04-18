@@ -1,21 +1,10 @@
 vim.pack.add({
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-	{ src = "https://github.com/windwp/nvim-ts-autotag" },
+	{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
 })
 
-local configs = require("nvim-treesitter")
-
-configs.setup({
-	auto_install = true,
-	highlight = {
-		enable = true,
-	},
-	indent = {
-		enable = true,
-	},
-	autotag = {
-		enable = true,
-	},
+require("tree-sitter-manager").setup({
+	auto_install = true, -- Instala parsers automáticamente al abrir un archivo
+	highlight = true,
 	ensure_installed = {
 		"c_sharp",
 		"razor",
@@ -38,14 +27,6 @@ configs.setup({
 		"vimdoc",
 		"c",
 		"sql",
-	},
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection = "<C-space>",
-			node_incremental = "<C-space>",
-			scope_incremental = false,
-			node_decremental = "<bs>",
-		},
+		"svelte",
 	},
 })

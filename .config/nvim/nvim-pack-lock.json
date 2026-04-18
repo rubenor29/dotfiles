@@ -112,6 +112,10 @@
       "rev": "c54380dd4d8d1738b9691a7c349ecad7967ac12e",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
+    "roslyn-filewatch.nvim": {
+      "rev": "4db2f1202cbf691d3c43797459eccd85cbe16342",
+      "src": "https://github.com/khoido2003/roslyn-filewatch.nvim"
+    },
     "roslyn.nvim": {
       "rev": "0687e3c12731e3d76d3d8bfb5aa873b736105981",
       "src": "https://github.com/seblyng/roslyn.nvim"
@@ -127,6 +131,10 @@
     "tokyogogh.nvim": {
       "rev": "d22e3a8c668251a7b92401bdad67ba9978ed2e3c",
       "src": "https://github.com/cesaralvarod/tokyogogh.nvim"
+    },
+    "tree-sitter-manager.nvim": {
+      "rev": "fa63bc63ae08b661843d9976a43becfbd3daf76c",
+      "src": "https://github.com/romus204/tree-sitter-manager.nvim"
     },
     "vim-tmux-navigator": {
       "rev": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432",

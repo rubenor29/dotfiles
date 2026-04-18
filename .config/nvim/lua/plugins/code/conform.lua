@@ -14,6 +14,7 @@ conform.setup({
 		css = { "prettier" },
 		java = { "google-java-format" },
 		cs = { "csharpier" },
+		python = { "ruff" },
 	},
 })
 
@@ -22,6 +23,6 @@ vim.keymap.set({ "n", "v" }, "<leader>mp", function()
 	conform.format({
 		lsp_fallback = true,
 		async = false,
-		timeout_ms = 2000,
+		timeout_ms = 5000,
 	})
 end, { desc = "Formatear archivo o selección" })
