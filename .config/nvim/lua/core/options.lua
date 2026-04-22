@@ -15,3 +15,4 @@ vim.o.splitbelow = true              -- :split abre abajo
 vim.o.ignorecase = true              -- Ignorar mayusculas o minusculas al buscar
 vim.o.smartcase = true               -- Si intercalamos mayusculas y minusculas entonces se asume el case-sensisitve
 vim.o.backspace = "indent,eol,start" -- Comportamiento de backspace moderno
+vim.opt.winborder = "rounded"

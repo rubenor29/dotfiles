@@ -68,7 +68,7 @@ vim.lsp.enable({
 	"cssls",
 	"emmet_ls",
 	"html",
-	"roslyn_ls",
+	"roslyn_native",
 	"rust_analyzer",
 	"svelte",
 	"tailwindcss",
