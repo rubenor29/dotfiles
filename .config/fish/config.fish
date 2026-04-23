@@ -1,7 +1,4 @@
-set fish_color_command green --bold --underline
-set fish_color_keyword white --italics
-set fish_color_normal white 
-set fish_color_error red --bold
+source $__fish_config_dir/themes/tokyo_night_theme.fish
 
 alias ll='eza -lh --icons --group-directories-first'
 alias la='eza -a --icons --group-directories-first'
@@ -26,5 +23,6 @@ alias gp='git push'
 
 alias zr='source ~/.config/fish/config.fish'
 
+fnm env --use-on-cd --shell fish | source
 zoxide init fish | source
 starship init fish | source
