@@ -152,8 +152,7 @@ end
 
 -- Renombrado de roslyn_ls a roslyn_native por problemas al usar :lsp restart
 -- y nvim-lspconfig
-vim.lsp.config("roslyn_native", {
-	name = "roslyn_native",
+return {
 	cmd = {
 		vim.fn.executable("Microsoft.CodeAnalysis.LanguageServer") == 1 and "Microsoft.CodeAnalysis.LanguageServer"
 			or "roslyn-language-server",
@@ -372,4 +371,4 @@ vim.lsp.config("roslyn_native", {
 			dotnet_enable_references_code_lens = true,
 		},
 	},
-})
+}

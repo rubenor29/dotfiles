@@ -1,8 +1,10 @@
 vim.pack.add({
 	{ src = "https://github.com/stevearc/dressing.nvim" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
-	{ src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
 	{ src = "https://github.com/folke/lazydev.nvim" },
+	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+	{ src = "https://github.com/williamboman/mason-lspconfig.nvim" },
 })
 
 require("lazydev").setup({
@@ -11,10 +13,8 @@ require("lazydev").setup({
 	},
 })
 
--- Mejorar UI de Code actions
 pcall(require, "dressing")
 
--- Configuración estética de diagnósticos
 vim.diagnostic.config({
 	float = { border = "rounded", source = "always" },
 	virtual_text = false,
@@ -28,16 +28,14 @@ vim.diagnostic.config({
 	},
 })
 
--- Atajos :lsp
-vim.keymap.set("n", "<leader>lsr", ":lsp restart<CR>", { desc = "Reiniciar LSP" })
+vim.keymap.set("n", "<leader>lsr", "<cmd>lsp restart<CR>", { desc = "Reiniciar LSP" })
 
--- Configuración lsp attach para habilitar ir a definiciones y code actions
+-- LspAttach: keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
 	callback = function(event)
 		local bufnr = event.buf
 		local k = vim.keymap
-
 		local function opts(desc)
 			return { buffer = bufnr, silent = true, desc = desc }
 		end
@@ -53,25 +51,51 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-local has_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
-if has_cmp then
-	capabilities = cmp_lsp.default_capabilities(capabilities)
-end
-
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-vim.lsp.enable({
-	"lua_ls",
-	"clangd",
-	"cssls",
-	"emmet_ls",
-	"html",
-	"roslyn_native",
-	"rust_analyzer",
-	"svelte",
-	"tailwindcss",
-	"ts_ls",
-	"pyright",
+require("mason").setup({
+	ui = {
+		icons = {
+			package_installed = "✓",
+			package_pending = "➜",
+			package_uninstalled = "✗",
+		},
+	},
 })
+
+require("mason-tool-installer").setup({
+	ensure_installed = {
+		-- Herramientas, linters y formateadores
+		"tree-sitter-cli",
+		"prettier",
+		"stylua",
+		"google-java-format",
+		"prettier",
+		"eslint_d",
+		"ruff",
+		"csharpier",
+
+		-- Lsps que por alguna razón debo instalar desde mason tool
+		"svelte-language-server",
+		"docker-compose-language-service",
+		"docker-language-server",
+		"dockerfile-language-server",
+	},
+	auto_update = true,
+	run_on_start = true,
+})
+
+require("mason-lspconfig").setup({
+	ensure_installed = {
+		-- Lsps
+		"lua_ls",
+		"clangd",
+		"cssls",
+		"emmet_ls",
+		"html",
+		"rust_analyzer",
+		"pyright",
+		"jdtls",
+	},
+	automatic_installation = true,
+})
+
+vim.lsp.enable("roslyn_ls")

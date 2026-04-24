@@ -15,6 +15,7 @@ conform.setup({
 		java = { "google-java-format" },
 		cs = { "csharpier" },
 		python = { "ruff" },
+        php = { "pretty-php" }
 	},
 })
 
