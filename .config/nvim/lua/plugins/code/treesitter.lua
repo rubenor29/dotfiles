@@ -1,5 +1,5 @@
 vim.pack.add({
-	{ src = "romus204/tree-sitter-manager.nvim" },
+	{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
 })
 
 require("tree-sitter-manager").setup({

@@ -1,5 +1,5 @@
 vim.pack.add({
-	{ src = "stevearc/conform.nvim" },
+	{ src = "https://github.com/stevearc/conform.nvim" },
 })
 
 local conform = require("conform")

@@ -1,6 +1,6 @@
 -- Buscador en archivos, iconos, atajos lsp
 vim.pack.add({
-	{ src = "echasnovski/mini.nvim" },
+	{ src = "https://github.com/nvim-mini/mini.nvim" },
 })
 
 require("mini.pick").setup()

@@ -1,7 +1,7 @@
 vim.pack.add({
-	{ src = "saghen/blink.lib" },
-	{ src = "saghen/blink.cmp", version = "v1" },
-	{ src = "rafamadriz/friendly-snippets" },
+	{ src = "https://github.com/saghen/blink.lib" },
+	{ src = "https://github.com/saghen/blink.cmp", version = "v1" },
+	{ src = "https://github.com/rafamadriz/friendly-snippets" },
 })
 
 local blink = require("blink.cmp")

@@ -1,12 +1,12 @@
 vim.pack.add({
 	-- Explorador de archivos
-	{ src = "stevearc/oil.nvim" },
+	{ src = "https://github.com/stevearc/oil.nvim" },
 	-- Cerrado automatico de parentesis, llaves y corchetes
-	{ src = "windwp/nvim-autopairs" },
+	{ src = "https://github.com/windwp/nvim-autopairs" },
 	-- Atajos estilo tmux
-	{ src = "christoomey/vim-tmux-navigator" },
+	{ src = "https://github.com/christoomey/vim-tmux-navigator" },
 	-- Mostrar posibles comandos
-	{ src = "folke/which-key.nvim" },
+	{ src = "https://github.com/folke/which-key.nvim" },
 })
 
 require("oil").setup()

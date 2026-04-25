@@ -26,7 +26,7 @@ local themes = {
 local colors = themes["tokyonight"]
 
 vim.pack.add({
-	{ src = "nvim-lualine/lualine.nvim" },
+	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
 })
 
 local lualine = require("lualine")

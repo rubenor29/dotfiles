@@ -1,5 +1,5 @@
 vim.pack.add({
-	{ src = "cesaralvarod/tokyogogh.nvim" },
+	{ src = "https://github.com/cesaralvarod/tokyogogh.nvim" },
 })
 
 require("tokyogogh").setup()
