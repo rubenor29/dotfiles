@@ -1,9 +1,9 @@
 vim.pack.add({
-	{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
+	{ src = "romus204/tree-sitter-manager.nvim" },
 })
 
 require("tree-sitter-manager").setup({
-	auto_install = true, -- Instala parsers automáticamente al abrir un archivo
+	auto_install = true,
 	highlight = true,
 	ensure_installed = {
 		"c_sharp",

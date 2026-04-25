@@ -1,10 +1,9 @@
 vim.pack.add({
-	{ src = "https://github.com/stevearc/conform.nvim" },
+	{ src = "stevearc/conform.nvim" },
 })
 
 local conform = require("conform")
 
--- configura conform
 conform.setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
@@ -15,11 +14,10 @@ conform.setup({
 		java = { "google-java-format" },
 		cs = { "csharpier" },
 		python = { "ruff" },
-        php = { "pretty-php" }
+		php = { "pretty-php" },
 	},
 })
 
--- mapea la tecla para formatear
 vim.keymap.set({ "n", "v" }, "<leader>mp", function()
 	conform.format({
 		lsp_fallback = true,

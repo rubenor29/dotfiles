@@ -1,19 +1,11 @@
 vim.pack.add({
-	{ src = "https://github.com/saghen/blink.lib" },
-	{ src = "https://github.com/saghen/blink.cmp", version = "1.*" },
+	{ src = "saghen/blink.lib" },
+	{ src = "saghen/blink.cmp", version = "v1" },
 	{ src = "rafamadriz/friendly-snippets" },
 })
 
-vim.api.nvim_create_autocmd("User", {
-	pattern = "BlinkCmpBuild",
-	callback = function()
-		vim.notify("BlinkCmp build completed!")
-	end,
-})
-
 local blink = require("blink.cmp")
-
-blink.build()
+-- blink.build():wait(60000)
 
 blink.setup({
 	fuzzy = { implementation = "prefer_rust_with_warning" },
