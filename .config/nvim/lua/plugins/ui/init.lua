@@ -1,4 +1,4 @@
 require("plugins.ui.minimal-config-plugins")
 require("plugins.ui.lualine")
-require("plugins.ui.gruvbox")
 require("plugins.ui.tokyogogh")
+require("plugins.ui.gruvbox")

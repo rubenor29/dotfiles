@@ -4,6 +4,10 @@
       "rev": "dae4f5aaa3574bd0c2b9dd20fb9542a02c10471c",
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
+    "ayu-vim": {
+      "rev": "01faacb4cb76e8cf72ad9858c581d80876260ab3",
+      "src": "https://github.com/ayu-theme/ayu-vim"
+    },
     "blink.cmp": {
       "rev": "0a4caef5829b88fb914e5d82196903aac3d57a69",
       "src": "https://github.com/saghen/blink.cmp",

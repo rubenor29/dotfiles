@@ -78,6 +78,7 @@ require("mason-tool-installer").setup({
 		"docker-compose-language-service",
 		"docker-language-server",
 		"dockerfile-language-server",
+		"markdown-oxide",
 	},
 	auto_update = true,
 	run_on_start = true,
@@ -94,6 +95,9 @@ require("mason-lspconfig").setup({
 		"rust_analyzer",
 		"pyright",
 		"jdtls",
+		"jsonls",
+		"taplo",
+		"lemminx",
 	},
 	automatic_installation = true,
 })
