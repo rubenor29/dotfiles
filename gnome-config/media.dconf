@@ -1,5 +1,8 @@
 [/]
 custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
+next=['<Alt>F5']
+play=['<Alt>F4']
+previous=['<Alt>F3']
 screensaver=['<Alt>l']
 volume-down=['<Alt>F1']
 volume-up=['<Alt>F2']
@@ -11,6 +14,6 @@ command='kitty'
 name='terminal'
 
 [custom-keybindings/custom1]
-binding=''
-command='krunner'
-name='app launcher'
+binding='<Shift><Control>Escape'
+command='flatpak run io.missioncenter.MissionCenter'
+name='resources'

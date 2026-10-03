@@ -2,12 +2,12 @@
 folder-children=['System', 'Utilities', 'YaST', 'Pardus', 'c2db82bb-3a75-4e73-b1b4-4068d228555b', '94bf4cae-fbd0-4a93-b249-a0da6317bce4', '3f8ceb7a-bd6c-4639-9208-7e8c464933e4', 'ec5f1fc4-9274-48b9-967c-1f3e6f2bdd01']
 
 [folders/3f8ceb7a-bd6c-4639-9208-7e8c464933e4]
-apps=['netbeans.desktop', 'nvim.desktop', 'io.dbeaver.DBeaver.desktop', 'org.gnome.Dia.desktop', 'jconsole-java-openjdk.desktop', 'jshell-java-openjdk.desktop', 'cmake-gui.desktop', 'dia.desktop', 'dbeaver-ce.desktop', 'apache-netbeans-ide-31.desktop']
+apps=['netbeans.desktop', 'nvim.desktop', 'io.dbeaver.DBeaver.desktop', 'org.gnome.Dia.desktop', 'jconsole-java-openjdk.desktop', 'jshell-java-openjdk.desktop', 'cmake-gui.desktop', 'dia.desktop', 'dbeaver-ce.desktop', 'apache-netbeans-ide-31.desktop', 'CiscoPacketTracer-9.0.1.desktop', 'CiscoPacketTracerPtsa-9.0.1.desktop']
 name='Dev'
 translate=false
 
 [folders/94bf4cae-fbd0-4a93-b249-a0da6317bce4]
-apps=['org.onlyoffice.desktopeditors.desktop', 'Stirling PDF.desktop', 'libreoffice-startcenter.desktop', 'libreoffice-writer.desktop', 'libreoffice-impress.desktop', 'libreoffice-calc.desktop', 'libreoffice-base.desktop', 'libreoffice-draw.desktop', 'libreoffice-math.desktop']
+apps=['onlyoffice-desktopeditors.desktop', 'libreoffice-startcenter.desktop', 'libreoffice-writer.desktop', 'libreoffice-impress.desktop', 'libreoffice-calc.desktop', 'libreoffice-draw.desktop']
 name='Office'
 translate=false
 
@@ -17,12 +17,12 @@ name='X-Pardus-Apps.directory'
 translate=true
 
 [folders/System]
-apps=['org.gnome.baobab.desktop', 'org.gnome.DiskUtility.desktop', 'org.freedesktop.MalcontentControl.desktop', 'org.gnome.tweaks.desktop', 'bssh.desktop', 'avahi-discover.desktop', 'btop.desktop', 'org.gnome.Extensions.desktop', 'lstopo.desktop', 'hplip.desktop', 'bvnc.desktop', 'system-config-printer.desktop', 'qv4l2.desktop', 'qvidcap.desktop', 'org.pulseaudio.pavucontrol.desktop', 'org.gnome.Settings.desktop', 'org.gnome.Meld.desktop', 'btrfs-assistant.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'org.gnome.Ptyxis.desktop', 'gnome-mplayer.desktop', 'io.github.ilya_zlobintsev.LACT.desktop', 'org.gnome.Console.desktop', 'org.gnome.Logs.desktop', 'org.gnome.SystemMonitor.desktop']
+apps=['org.gnome.baobab.desktop', 'org.gnome.DiskUtility.desktop', 'org.freedesktop.MalcontentControl.desktop', 'org.gnome.tweaks.desktop', 'bssh.desktop', 'avahi-discover.desktop', 'btop.desktop', 'org.gnome.Extensions.desktop', 'lstopo.desktop', 'hplip.desktop', 'bvnc.desktop', 'system-config-printer.desktop', 'qv4l2.desktop', 'qvidcap.desktop', 'org.pulseaudio.pavucontrol.desktop', 'org.gnome.Settings.desktop', 'org.gnome.Meld.desktop', 'btrfs-assistant.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'org.gnome.Ptyxis.desktop', 'gnome-mplayer.desktop', 'io.github.ilya_zlobintsev.LACT.desktop', 'org.gnome.Console.desktop', 'org.gnome.Logs.desktop', 'org.gnome.SystemMonitor.desktop', 'org.gnome.Terminal.desktop', 'nm-connection-editor.desktop', 'fish.desktop', 'yelp.desktop', 'im-config.desktop', 'debian-uxterm.desktop', 'debian-xterm.desktop']
 name='X-GNOME-Shell-System.directory'
 translate=true
 
 [folders/Utilities]
-apps=['org.gnome.Decibels.desktop', 'org.gnome.Papers.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.Loupe.desktop', 'org.gnome.SimpleScan.desktop', 'org.gnome.Evince.desktop', 'org.gnome.Calculator.desktop', 'hp-uiscan.desktop', 'cups.desktop', 'micro.desktop', 'org.gnome.PowerStats.desktop', 'vim.desktop', 'org.gnome.TextEditor.desktop', 'htop.desktop', 'yazi.desktop', 'nvtop.desktop', 'org.gnome.Contacts.desktop', 'org.gnome.Weather.desktop', 'org.gnome.clocks.desktop', 'org.gnome.Maps.desktop', 'ca.desrt.dconf-editor.desktop', 'org.gnome.Snapshot.desktop', 'org.gnome.Characters.desktop', 'org.gnome.Tour.desktop', 'org.gnome.Yelp.desktop', 'org.gnome.Photos.desktop', 'org.gnome.Totem.desktop', 'org.gnome.Music.desktop']
+apps=['org.gnome.Decibels.desktop', 'org.gnome.Papers.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.Loupe.desktop', 'org.gnome.SimpleScan.desktop', 'org.gnome.Evince.desktop', 'org.gnome.Calculator.desktop', 'hp-uiscan.desktop', 'cups.desktop', 'micro.desktop', 'org.gnome.PowerStats.desktop', 'vim.desktop', 'org.gnome.TextEditor.desktop', 'htop.desktop', 'yazi.desktop', 'nvtop.desktop', 'org.gnome.Contacts.desktop', 'org.gnome.Weather.desktop', 'org.gnome.clocks.desktop', 'org.gnome.Maps.desktop', 'ca.desrt.dconf-editor.desktop', 'org.gnome.Snapshot.desktop', 'org.gnome.Characters.desktop', 'org.gnome.Tour.desktop', 'org.gnome.Yelp.desktop', 'org.gnome.Photos.desktop', 'org.gnome.Totem.desktop', 'org.gnome.Music.desktop', 'org.gnome.Calendar.desktop', 'simple-scan.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.Shotwell.desktop', 'org.gnome.SoundRecorder.desktop']
 name='X-GNOME-Shell-Utilities.directory'
 translate=true
 

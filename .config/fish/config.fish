@@ -7,7 +7,7 @@ alias ls='eza --icons --group-directories-first'
 alias lla='eza -lha --icons --group-directories-first'
 alias tree="eza -T --icons --group-directories-first"
 
-alias cat='bat --style=plain --paging=never'
+alias cat='batcat --style=plain --paging=never'
 
 alias cd='z'
 

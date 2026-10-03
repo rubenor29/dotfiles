@@ -1,7 +1,8 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR __fish_initialized:4300
-SETUVAR fish_user_paths:/home/rubenor/\x2edotnet/tools
+SETUVAR __fish_initialized:3800
+SETUVAR fish_key_bindings:fish_default_key_bindings
+SETUVAR fish_user_paths:/home/rubenor/\x2elocal/share/bob/nvim\x2dbin\x1e/home/rubenor/\x2elocal/bin\x1e/home/rubenor/\x2edotnet/tools
 SETUVAR pure_begin_prompt_with_current_directory:true
 SETUVAR pure_check_for_new_release:false
 SETUVAR pure_color_at_sign:pure_color_mute

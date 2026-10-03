@@ -1,143 +1,155 @@
 #!/bin/bash
 set -euo pipefail
-echo "============================================================"
-echo "[Script] Instalando extensiones gnome, apps, y utilidades"
-echo "============================================================"
-sudo pacman -Syu paru --needed -y
-sudo pacman -Rns alacritty
 
-# Instalar paquetes
-paru -Syu \
-gnome-shell-extension-appindicator \
-gnome-shell-extension-blur-my-shell \
-papirus-icon-theme \
-wl-clipboard \
-audiosource \
-nokkvi-bin \
-ttf-cascadia-code-nerd \
-ttf-ms-fonts \
-ttf-wps-fonts \
-onlyoffice-bin \
-libreoffice-fresh \
-stirling-pdf-desktop \
-brave-origin-bin \
-fish \
-kitty \
-ufw \
-eza \
-bat \
-zoxide \
-tmux \
-yazi \
-fzf \
-snapper \
-snap-pac \
-btrfs-assistant \
-syncthing \
-git \
-git-delta \
-base-devel \
-mission-center \
-neovim \
-tree-sitter-cli \
-starship \
-fnm \
-rustup \
-dotnet-sdk-bin \
-dotnet-runtime-bin \
-aspnet-runtime-bin \
-jdk-openjdk \
-maven \
-netbeans \
-dbeaver \
-mariadb \
-postgresql \
-uv \
-podman \
-podman-docker \
-podman-compose \
-dia-git \
-obsidian \
-filezilla \
-cmake \
-cachyos-gaming-meta \
-steam \
-heroic-games-launcher \
-prismlauncher \
---needed -y
-
-# Ruta relativa del script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DEBS_PATH="$HOME/packages/debs"
 
 echo "============================================================"
-echo "[Script] Configurando ufw"
+echo "[Script] Configurando Repositorios y Arquitectura"
 echo "============================================================"
-sudo systemctl enable --now ufw
-sudo ufw default deny
-sudo ufw allow from 192.168.1.0/24
-sudo ufw allow Deluge
-sudo ufw limit ssh
+# 1. Habilitar soporte para paquetes de 32 bits (Requerido para Steam y WINE)
+sudo dpkg --add-architecture i386
 
-
+# 2. Inyectar componentes contrib, non-free y non-free-firmware
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y curl wget git build-essential apt
+# sudo apt-add-repository -y contrib
+# sudo apt-add-repository -y non-free
+# sudo apt-add-repository -y non-free-firmware
 
 echo "============================================================"
-echo "[Script] Estableciendo fish como shell predeterminada (reiniciar para ver efecto)"
+echo "[Script] Configurando Flatpak y GNOME Software"
+echo "============================================================"
+# Instalar el daemon de flatpak y la abstracción (plugin) para que GNOME Software lo administre
+sudo apt install -y flatpak gnome-software gnome-software-plugin-flatpak
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+echo "============================================================"
+echo "[Script] Instalando paquetes nativos (APT)"
+echo "============================================================"
+sudo apt update
+sudo apt install -y \
+    gnome-shell-extension-manager \
+    papirus-icon-theme \
+    wl-clipboard \
+    fish \
+    kitty \
+    bat \
+    zoxide \
+    tmux \
+    fzf \
+    syncthing \
+    neovim \
+    openjdk-25-jdk \
+    maven \
+    mariadb-server \
+    mariadb-client \
+    postgresql \
+    podman \
+    podman-compose \
+    podman-docker \
+    dia \
+    filezilla \
+    cmake \
+    steam-installer \
+    adb \
+    fastboot \
+    pipewire-pulse \
+    python3 \
+    python3-pip \
+    thunderbird \
+    eza \
+    npm \
+    python3-venv
+
+echo "============================================================"
+echo "[Script] Instalando herramientas modernas (Rust / Scripts)"
+echo "============================================================"
+# Debian estable con frecuencia empaqueta versiones anticuadas o no incluye herramientas de ecosistemas de iteración rápida.
+
+# Despliegue de Rustup y Cargo
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source "$HOME/.cargo/env"
+
+# Herramientas CLI (Starship, FNM, UV) aisladas de apt
+curl -sS https://starship.rs/install.sh | sh -s -- -y
+curl -LsSf https://astral.sh/uv/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/MordechaiHadad/bob/master/scripts/install.sh | bash
+bob install stable
+bob use stable
+
+wget https://packages.microsoft.com/config/debian/13/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+
+sudo apt update && sudo apt install -y dotnet-sdk-10.0
+
+sudo wget https://prism-launcher-for-debian.github.io/repo/prismlauncher.gpg -O /usr/share/keyrings/prismlauncher-archive-keyring.gpg \
+ && echo "Types: deb
+URIs: https://prism-launcher-for-debian.github.io/repo
+Suites: $(. /etc/os-release; echo "${UBUNTU_CODENAME:-${DEBIAN_CODENAME:-${VERSION_CODENAME}}}")
+Components: main
+Signed-By: /usr/share/keyrings/prismlauncher-archive-keyring.gpg" | sudo tee /etc/apt/sources.list.d/prismlauncher.sources \
+ && sudo apt update \
+ && sudo apt install prismlauncher
+
+echo "============================================================"
+echo "[Script] Instalando binarios externos (.deb)"
+echo "============================================================"
+mkdir -p "$DEBS_PATH"
+
+wget "https://dbeaver.io/files/dbeaver-ce-latest-linux-x86_64.deb" -O "$DEBS_PATH/dbeaver-ce.deb"
+wget "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v2.22.3/Heroic-2.22.3-linux-amd64.deb" -O "$DEBS_PATH/heroic.deb"
+wget "https://github.com/ONLYOFFICE/DesktopEditors/releases/latest/download/onlyoffice-desktopeditors_amd64.deb" -O "$DEBS_PATH/onlyoffice.deb"
+
+sudo apt install "$DEBS_PATH/"*.deb -y
+
+echo "============================================================"
+echo "[Script] Instalando aplicaciones Flatpak"
+echo "============================================================"
+flatpak install -y flathub md.obsidian.Obsidian
+flatpak install -y flathub io.missioncenter.MissionCenter
+
+echo "============================================================"
+echo "[Script] Configuración del Entorno de Usuario"
 echo "============================================================"
 chsh -s /usr/bin/fish
+
 FISH_CFG_DIR="$SCRIPT_DIR/.config/fish"
 rm -rf "$HOME/.config/fish"
-cp -r "$FISH_CFG_DIR" "$HOME/.config"
+cp -r "$FISH_CFG_DIR" "$HOME/.config/"
 
 rm -rf "$HOME/.config/starship.toml"
 STARSHIP_CFG="$SCRIPT_DIR/.config/starship.toml"
-cp -r "$STARSHIP_CFG" "$HOME/.config"
+cp -r "$STARSHIP_CFG" "$HOME/.config/"
 
+sudo npm i -g pnpm
+sudo npm i -g tree-sitter-cli
 
-echo "============================================================"
-echo "[Script] Configurando NodeJS"
-echo "============================================================"
-fnm install 24
-
-echo "============================================================"
-echo "[Script] Configurando Rust"
-echo "============================================================"
-# Instalar y configurar rust
-rustup default stable
-
-echo "============================================================"
-echo "[Script] Habilitando syncthing"
-echo "============================================================"
+# Syncthing a nivel de sesión local
 sudo systemctl enable --now syncthing@$USER
 
 echo "============================================================"
-echo "[Script] Copiando dots"
+echo "[Script] Inyectando Dotfiles y Clonando TPM"
 echo "============================================================"
-rm -rf "$HOME/.config/nvim" "$HOME/.config/kitty"  "$HOME/.config/tmux" "$HOME/.tmux.conf"
-cp -r "$SCRIPT_DIR/.config/nvim" "$HOME/.config"
-cp -r "$SCRIPT_DIR/.config/kitty" "$HOME/.config"
-cp -r "$SCRIPT_DIR/.config/tmux" "$HOME/.config"
+rm -rf "$HOME/.config/nvim" "$HOME/.config/kitty" "$HOME/.config/tmux" "$HOME/.tmux.conf"
+cp -r "$SCRIPT_DIR/.config/nvim" "$HOME/.config/"
+cp -r "$SCRIPT_DIR/.config/kitty" "$HOME/.config/"
+cp -r "$SCRIPT_DIR/.config/tmux" "$HOME/.config/"
 cp -r "$SCRIPT_DIR/.gitconfig" "$HOME/"
-cp -r "$SCRIPT_DIR/wallpaper.jpeg" "$HOME/Pictures/"
-cp -r "$SCRIPT_DIR/wallpaper2.jpeg" "$HOME/Pictures/"
+mkdir -p "$HOME/Pictures"
+cp -r "$SCRIPT_DIR/wallpaper.jpeg" "$HOME/Pictures/" 2>/dev/null || true
+cp -r "$SCRIPT_DIR/wallpaper2.jpeg" "$HOME/Pictures/" 2>/dev/null || true
 
-echo "============================================================"
-echo "[Script] Descargando tmux TPM"
-echo "============================================================"
-# Descargar tpm
+rm -rf "$HOME/.tmux/plugins/tpm"
 git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 
 echo "============================================================"
 echo "[Script] Configurando git"
 echo "============================================================"
-# [ -t 0 ] evalúa si el descriptor de archivo 0 (stdin) está conectado a una terminal
 if [ -t 0 ]; then
-    # --------------------------------------------------------------------------
-    # 1. Identidad de Git
-    # --------------------------------------------------------------------------
-    # -r evita que bash interprete contrabarras (\) como secuencias de escape
-    # -p imprime el mensaje en la misma línea
     read -rp "¿Deseas configurar la identidad global de Git ahora? [s/N]: " prompt_git
-    git_email="" # Inicializar para usarla en SSH posteriormente
+    git_email=""
     
     case "${prompt_git}" in
         [sS]|[sS][iI]|[yY]|[yY][eE][sS])
@@ -159,35 +171,25 @@ if [ -t 0 ]; then
             ;;
     esac
 
-    # --------------------------------------------------------------------------
-    # 2. Generación de Clave SSH
-    # --------------------------------------------------------------------------
     read -rp "¿Deseas generar una nueva clave SSH (Ed25519)? [s/N]: " prompt_ssh
     case "${prompt_ssh}" in
         [sS]|[sS][iI]|[yY]|[yY][eE][sS])
             SSH_FILE="$HOME/.ssh/id_ed25519"
             
-            # Bloqueo de seguridad: Evitar destrucción de claves existentes
             if [ -f "$SSH_FILE" ]; then
                 echo "[WARN] La clave $SSH_FILE ya existe. Omitiendo para evitar pérdida de datos."
             else
-                # Si se saltó la config de Git, pedir el correo para la etiqueta de la clave
                 ssh_email="${git_email:-}"
                 while [[ -z "${ssh_email}" ]]; do
                     read -rp "Ingresa el correo para asociar a la clave SSH: " ssh_email
                 done
                 
-                echo "[INFO] Generando clave SSH Ed25519. Puedes dejar la contraseña en blanco (Enter) o establecer una."
-                
-                # Explicación de los flags:
-                # -t ed25519 : Define el algoritmo.
-                # -C "$ssh_email" : Etiqueta (Comment) adjunta a la clave pública para fácil identificación.
-                # -f "$SSH_FILE" : Fuerza la ruta del archivo, evitando que ssh-keygen pregunte dónde guardarlo.
+                echo "[INFO] Generando clave SSH Ed25519."
                 ssh-keygen -t ed25519 -C "$ssh_email" -f "$SSH_FILE"
                 
                 echo -e "\n[OK] Clave pública generada. Lista para añadir a GitHub/GitLab:"
                 cat "${SSH_FILE}.pub"
-                echo "" # Salto de línea limpio
+                echo ""
             fi
             ;;
         *)
@@ -195,87 +197,44 @@ if [ -t 0 ]; then
             ;;
     esac
 else
-    echo "[WARN] Ejecución no interactiva (sin TTY detectado). Omitiendo prompts de Git/SSH."
+    echo "[WARN] Ejecución no interactiva. Omitiendo prompts de Git/SSH."
 fi
 
-
 echo "============================================================"
-echo "[Script] Configurando GNOME"
+echo "[Script] Configurando GNOME y D-Bus"
 echo "============================================================"
-
-# ==============================================================================
-# INICIALIZACIÓN DEL ENTORNO D-BUS (Requerido para gsettings/dconf)
-# ==============================================================================
+# Manejo del daemon D-Bus para habilitar gsettings desde scripts
 if [ -z "${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
     _USER_ID=$(id -u)
     _BUS_PATH="/run/user/${_USER_ID}/bus"
 
     if [ -S "$_BUS_PATH" ]; then
-        # Escenario 1: El socket existe (TTY, SSH, sesión logind), lo vinculamos.
         export DBUS_SESSION_BUS_ADDRESS="unix:path=${_BUS_PATH}"
-        echo "[INFO] D-Bus vinculado al socket existente: $_BUS_PATH"
     else
-        # Escenario 2: No hay demonio D-Bus (entorno chroot o aislado).
-        # Verificamos si dbus-run-session está disponible para levantar un bus efímero.
         if command -v dbus-run-session >/dev/null 2>&1; then
-            echo "[INFO] D-Bus ausente. Relanzando el script bajo dbus-run-session..."
-            # exec reemplaza el proceso actual. El script se ejecuta de nuevo desde cero
-            # pero esta vez con un entorno D-Bus inyectado automáticamente.
             exec dbus-run-session -- "$0" "$@"
         else
-            echo "[ERROR] No se pudo encontrar ni iniciar un bus de sesión D-Bus." >&2
-            echo "[ERROR] dconf/gsettings fallarán. Abortando." >&2
+            echo "[ERROR] Fallo crítico: Bus de sesión D-Bus no encontrado." >&2
             exit 1
         fi
     fi
 fi
 
-# Configurar boton de log out gnome
 gsettings set org.gnome.shell always-show-log-out true
-
-# 1. Desactivar aceleración de mouse (perfil plano / 1:1)
 gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
-
-# 2. Mostrar botones de minimizar, maximizar y cerrar en las ventanas
-# Nota: La sintaxis define "izquierda:derecha" separadas por dos puntos.
 gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
-
-# 3. Workspaces estáticos y fijados en 4
-# Desactiva la asignación dinámica automática
 gsettings set org.gnome.mutter dynamic-workspaces false
-# Define el número fijo de áreas de trabajo
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
-
-# 4. Multitasking: Desactivar resize/edge tiling (redimensionar al arrastrar a bordes)
 gsettings set org.gnome.mutter edge-tiling false
-
-# 5. Multi-monitor: Mantener workspaces en todas las pantallas
 gsettings set org.gnome.mutter workspaces-only-on-primary false
-
-# 6. App Switching (Alt+Tab): Limitar al workspace activo
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
-
-# 7. Estabelcer tema oscuro
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-
-# Cambiar color de acento
 gsettings set org.gnome.desktop.interface accent-color 'red'
 
-# Modo claro
 gsettings set org.gnome.desktop.background picture-uri "file://$HOME/Pictures/wallpaper2.jpeg"
-
-# Modo oscuro (GNOME 42+)
 gsettings set org.gnome.desktop.background picture-uri-dark "file://$HOME/Pictures/wallpaper2.jpeg"
 
-# 8. Activar extensiones
-# gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
-# gnome-extensions enable blur-my-shell@aunetx
-
-
-
 DOTFILES_DIR="$SCRIPT_DIR/gnome-config"
-
-# Mapeo relacional: Ruta en dconf -> Archivo INI
 declare -A KEYBINDS=(
   ["/org/gnome/desktop/wm/keybindings/"]="wm.dconf"
   ["/org/gnome/shell/keybindings/"]="shell.dconf"
@@ -283,38 +242,19 @@ declare -A KEYBINDS=(
   ["/org/gnome/settings-daemon/plugins/media-keys/"]="media.dconf"
 )
 
-echo "Iniciando restauración de keybinds de GNOME..."
-
+echo "[INFO] Restaurando keybinds de GNOME..."
 for path in "${!KEYBINDS[@]}"; do
   file="${DOTFILES_DIR}/${KEYBINDS[$path]}"
-  
   if [[ -f "$file" ]]; then
-    # El comando load inyecta el contenido del archivo en la ruta especificada.
-    # Es idempotente: si se ejecuta múltiples veces, el estado final es el mismo.
     dconf load "$path" < "$file"
-    echo "[OK] Rutas inyectadas en: $path"
-  else
-    echo "[WARN] Archivo no encontrado: $file. Omitiendo ruta $path." >&2
   fi
 done
 
-echo "Restauración completada."
-
-
 CONFIG_FILE="$SCRIPT_DIR/gnome-config/app-folders.dconf"
-
-if [ ! -f "$CONFIG_FILE" ]; then
-    echo "[ERROR] Archivo de configuración no encontrado: $CONFIG_FILE" >&2
-    exit 1
+if [ -f "$CONFIG_FILE" ]; then
+    echo "[INFO] Restaurando estructura de carpetas..."
+    dconf load /org/gnome/desktop/app-folders/ < "$CONFIG_FILE"
 fi
-
-echo "Restaurando estructura de carpetas de GNOME..."
-
-# Carga masiva e idempotente de la topología de carpetas
-dconf load /org/gnome/desktop/app-folders/ < "$CONFIG_FILE"
-
-echo "[OK] Carpetas de aplicaciones restauradas con éxito."
-
 
 echo "============================================================"
 echo "[Script] Completado. Reiniciando sistema..."
