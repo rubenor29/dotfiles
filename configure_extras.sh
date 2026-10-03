@@ -29,6 +29,8 @@ echo "[Script] Instalando paquetes nativos (APT)"
 echo "============================================================"
 sudo apt update
 sudo apt install -y \
+    git \
+    git-delta \
     gnome-shell-extension-manager \
     papirus-icon-theme \
     wl-clipboard \
@@ -101,6 +103,7 @@ mkdir -p "$DEBS_PATH"
 wget "https://dbeaver.io/files/dbeaver-ce-latest-linux-x86_64.deb" -O "$DEBS_PATH/dbeaver-ce.deb"
 wget "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v2.22.3/Heroic-2.22.3-linux-amd64.deb" -O "$DEBS_PATH/heroic.deb"
 wget "https://github.com/ONLYOFFICE/DesktopEditors/releases/latest/download/onlyoffice-desktopeditors_amd64.deb" -O "$DEBS_PATH/onlyoffice.deb"
+wget "https://files.stirlingpdf.com/linux-installer.deb" -O "$DEBS_PATH/stirlingpdf.deb"
 
 sudo apt install "$DEBS_PATH/"*.deb -y
 
