@@ -7,7 +7,7 @@ name='Dev'
 translate=false
 
 [folders/94bf4cae-fbd0-4a93-b249-a0da6317bce4]
-apps=['onlyoffice-desktopeditors.desktop', 'libreoffice-startcenter.desktop', 'libreoffice-writer.desktop', 'libreoffice-impress.desktop', 'libreoffice-calc.desktop', 'libreoffice-draw.desktop']
+apps=['onlyoffice-desktopeditors.desktop', 'Stirling PDF.desktop', 'libreoffice-startcenter.desktop', 'libreoffice-writer.desktop', 'libreoffice-impress.desktop', 'libreoffice-calc.desktop', 'libreoffice-draw.desktop']
 name='Office'
 translate=false
 
@@ -22,7 +22,7 @@ name='X-GNOME-Shell-System.directory'
 translate=true
 
 [folders/Utilities]
-apps=['org.gnome.Decibels.desktop', 'org.gnome.Papers.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.Loupe.desktop', 'org.gnome.SimpleScan.desktop', 'org.gnome.Evince.desktop', 'org.gnome.Calculator.desktop', 'hp-uiscan.desktop', 'cups.desktop', 'micro.desktop', 'org.gnome.PowerStats.desktop', 'vim.desktop', 'org.gnome.TextEditor.desktop', 'htop.desktop', 'yazi.desktop', 'nvtop.desktop', 'org.gnome.Contacts.desktop', 'org.gnome.Weather.desktop', 'org.gnome.clocks.desktop', 'org.gnome.Maps.desktop', 'ca.desrt.dconf-editor.desktop', 'org.gnome.Snapshot.desktop', 'org.gnome.Characters.desktop', 'org.gnome.Tour.desktop', 'org.gnome.Yelp.desktop', 'org.gnome.Photos.desktop', 'org.gnome.Totem.desktop', 'org.gnome.Music.desktop', 'org.gnome.Calendar.desktop', 'simple-scan.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.Shotwell.desktop', 'org.gnome.SoundRecorder.desktop']
+apps=['org.gnome.Decibels.desktop', 'org.gnome.Papers.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.Loupe.desktop', 'org.gnome.SimpleScan.desktop', 'org.gnome.Evince.desktop', 'org.gnome.Calculator.desktop', 'hp-uiscan.desktop', 'cups.desktop', 'micro.desktop', 'org.gnome.PowerStats.desktop', 'vim.desktop', 'org.gnome.TextEditor.desktop', 'htop.desktop', 'yazi.desktop', 'nvtop.desktop', 'org.gnome.Contacts.desktop', 'org.gnome.Weather.desktop', 'org.gnome.clocks.desktop', 'org.gnome.Maps.desktop', 'ca.desrt.dconf-editor.desktop', 'org.gnome.Snapshot.desktop', 'org.gnome.Characters.desktop', 'org.gnome.Tour.desktop', 'org.gnome.Yelp.desktop', 'org.gnome.Photos.desktop', 'org.gnome.Totem.desktop', 'org.gnome.Music.desktop', 'org.gnome.Calendar.desktop', 'simple-scan.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.Shotwell.desktop', 'org.gnome.SoundRecorder.desktop', 'gay.pancake.lsfg-vk-ui.desktop']
 name='X-GNOME-Shell-Utilities.directory'
 translate=true
 
@@ -38,6 +38,6 @@ name='CachyOS'
 translate=false
 
 [folders/ec5f1fc4-9274-48b9-967c-1f3e6f2bdd01]
-apps=['org.prismlauncher.PrismLauncher.desktop', 'Call of Duty Black Ops III.desktop', 'Left 4 Dead 2.desktop', 'DOOM.desktop', 'Hollow Knight.desktop', 'Halo The Master Chief Collection.desktop', 'Hollow Knight Silksong.desktop', 'S.T.A.L.K.E.R. Shadow of Chornobyl - Enhanced Edition.desktop', 'Little Nightmares Enhanced Edition.desktop', 'steam.desktop', 'heroic.desktop', 'io.github.benjamimgois.goverlay.desktop', 'com.vysp3r.ProtonPlus.desktop', 'protontricks.desktop', 'winetricks.desktop', 'twintaillauncher.desktop', 'app.twintaillauncher.ttl.desktop', 'com.heroicgameslauncher.hgl.desktop']
+apps=['org.prismlauncher.PrismLauncher.desktop', 'Call of Duty Black Ops III.desktop', 'Left 4 Dead 2.desktop', 'DOOM.desktop', 'Hollow Knight.desktop', 'Halo The Master Chief Collection.desktop', 'Hollow Knight Silksong.desktop', 'S.T.A.L.K.E.R. Shadow of Chornobyl - Enhanced Edition.desktop', 'Little Nightmares Enhanced Edition.desktop', 'steam.desktop', 'heroic.desktop', 'io.github.benjamimgois.goverlay.desktop', 'com.vysp3r.ProtonPlus.desktop', 'protontricks.desktop', 'winetricks.desktop', 'twintaillauncher.desktop', 'app.twintaillauncher.ttl.desktop', 'com.heroicgameslauncher.hgl.desktop', 'io.github.eugeniosegala.mako.desktop', 'io.github.eugeniosegala.mako.uninstaller.desktop']
 name='Games'
 translate=false
