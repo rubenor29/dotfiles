@@ -77,6 +77,8 @@ source "$HOME/.cargo/env"
 curl -sS https://starship.rs/install.sh | sh -s -- -y
 curl -LsSf https://astral.sh/uv/install.sh | sh
 curl -fsSL https://raw.githubusercontent.com/MordechaiHadad/bob/master/scripts/install.sh | bash
+source "$HOME/.local/bin/env"
+source "$HOME/.local/bin/env.fish"
 bob install stable
 bob use stable
 
