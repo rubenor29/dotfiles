@@ -23,7 +23,8 @@ alias gp='git push'
 
 alias zr='source ~/.config/fish/config.fish'
 
-fnm env --use-on-cd --shell fish | source
+abbr --add ssh "kitty +kitten ssh"
+
 zoxide init fish | source
 starship init fish | source
 
