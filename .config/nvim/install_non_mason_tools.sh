@@ -1,3 +1,4 @@
 #!/usr/bin/bash
 dotnet tool install --global roslyn-language-server --prerelease
-sudo pacman -Sy tree-sitter-cli fzf --needed
+dotnet tool install --global XamlToCSharpGenerator.LanguageServer.Tool --prerelease
+npm i -g tree-sitter-cli

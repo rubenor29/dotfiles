@@ -100,3 +100,4 @@ require("mason-lspconfig").setup({
 })
 
 vim.lsp.enable("roslyn_ls")
+vim.lsp.enable("axaml")
