@@ -53,16 +53,11 @@ sudo apt install -y \
     dia \
     filezilla \
     cmake \
-    steam-installer \
     adb \
-    fastboot \
     pipewire-pulse \
-    python3 \
-    python3-pip \
     thunderbird \
     eza \
-    npm \
-    python3-venv
+    npm
 
 echo "============================================================"
 echo "[Script] Instalando herramientas modernas (Rust / Scripts)"
