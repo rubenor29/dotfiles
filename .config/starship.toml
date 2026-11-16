@@ -2,6 +2,8 @@ scan_timeout = 60
 add_newline = false
 
 format = """\
+$username\
+$hostname\
 ($directory)\
 $os\
 $git_branch\

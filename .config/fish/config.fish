@@ -24,13 +24,7 @@ alias gp='git push'
 alias zr='source ~/.config/fish/config.fish'
 
 abbr --add ssh "kitty +kitten ssh"
+abbr --add update "sudo apt update && sudo apt upgrade -y"
 
 zoxide init fish | source
 starship init fish | source
-
-# pnpm
-set -gx PNPM_HOME "/home/rubenor/.local/share/pnpm"
-if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
-end
-# pnpm end
